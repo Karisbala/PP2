@@ -1,3 +1,7 @@
+'''
+Write a Python program to calculate two date difference in seconds.
+'''
+
 import datetime as dt
 
 date1 = dt.datetime(2017,3,24,0,0,0)

@@ -1,3 +1,7 @@
+'''
+Write a Python program to print yesterday, today, tomorrow.
+'''
+
 from datetime import date, timedelta
 
 print('Yesterday was: ', date.today() - timedelta(1))
