@@ -11,13 +11,13 @@ Print `k` - number that has all inverted bits of `n`.
 
 ### Examples
 
-'''
+```
 Input: 23
 Output: -24
 
 Input: 129
 Output: -130
-'''
+```
 
 
 # Problem B: 196111. Boris the Chef.
@@ -33,13 +33,14 @@ Print "It is tasty!" if the dish is tasty. Otherwise, print "Oh, no!."
 
 ### Examples
 
-'''
+```
 Input: OK
 Output: Oh, no!
 
 Input: sosisochki
 Output: It is tasty!
-'''
+
+```
 
 
 # Problem C: 187587. To Lowercase.
@@ -55,13 +56,13 @@ Print the string that you will get as a result of the `toLowercase` function.
 
 ### Examples
 
-'''
+```
 Input: aLmAtY
 Output: almaty
 
 Input: pp1
 Output: pp1
-'''
+```
 
 
 # Problem D: 186885. Asman + Systems = Astems
@@ -77,7 +78,7 @@ Print the result of conversion.
 
 ### Examples
 
-'''
+```
 Input: 
 3032
 k
@@ -88,7 +89,7 @@ Input:
 12
 b
 Output: 12288
-'''
+```
 
 
 # Problem E: 188812. Gunner.
@@ -108,13 +109,13 @@ Else print: "Good job!"
 
 ### Examples
 
-'''
+```
 Input: 443 10
 Output: Good job!
 
 Input: 883 976
 Output: Try next time!
-'''
+```
 
 
 # Problem F: 193526. Tears.
@@ -139,7 +140,7 @@ In each line output string depens on work hours.
 
 ### Examples
 
-'''
+```
 Input: 
 3
 5
@@ -161,7 +162,7 @@ Go to work!
 Burn! Burn! Burn Young!
 You are weak
 Burn! Burn! Burn Young!
-'''
+```
 
 
 # Problem G: 195718. To decimal.
@@ -179,13 +180,13 @@ Convert string `s` to decimal number and print it.
 
 ### Examples
 
-'''
+```
 Input: 1100
 Output: 12
 
 Input: 1000000000000000
 Output: 32768
-'''
+```
 
 
 # Problem H: 187532. First and last occurrence. 
@@ -200,7 +201,7 @@ Print the result.
 
 ### Examples
 
-'''
+```
 Input: 
 midterm
 m
@@ -212,7 +213,7 @@ concentrate
 t
 Output: 
 6 9
-'''
+```
 
 
 # Problem I: 189327. Dimash that's too bad.
@@ -231,7 +232,7 @@ Clear mails in each line.
 
 ### Examples
 
-'''
+```
 Input: 
 2
 1234ghdsh@gmail.com
@@ -246,7 +247,7 @@ goodbye@mail.com
 helloagain
 Output: 
 helloguys
-'''
+```
 
 
 # Problem J: Levy the cryptographer
@@ -262,10 +263,10 @@ Print the space-separeted decrypted message in one line.
 
 ### Examples
 
-'''
+```
 Input: hello boris how are you
 Output: hello boris how are you 
 
 Input: I am fine and what about u?
 Output: fine and what about 
-'''
+```
