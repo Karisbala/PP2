@@ -1,8 +1,8 @@
 s = input()
 
-t = ''.join(reversed(s))
+# t = ''.join(reversed(s))
 
-if s == t:
+if s == s[::-1]:
     print('It is palindrome')
 else:
     print('It is not palindrome')
