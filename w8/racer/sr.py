@@ -157,7 +157,7 @@ while True:
         
     #To be run if collision occurs between Player and Coin
     if pygame.sprite.spritecollide(P1, coin, True):
-        #pygame.mixer.Sound('sounds/crash.wav').play()
+        pygame.mixer.Sound('sounds/coin_collected.wav').play()
         new_coin = Coin()
         coin.add(new_coin)
         all_sprites.add(new_coin)
