@@ -50,3 +50,4 @@ Extend example project from Lab 8 and add following tasks:
 3. Draw equilateral triangle
 4. Draw rhombus
 5. Comment your code
+
