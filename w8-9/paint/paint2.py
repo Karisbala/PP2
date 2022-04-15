@@ -12,6 +12,7 @@ def draw_rect(screen, prevX, prevY, currentX, currentY, baseLayer):
     r = calculateRect(prevX, prevY, currentX, currentY)
     pygame.draw.rect(screen, (255,255, 255),pygame.Rect(r), 1)
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((640, 480))
