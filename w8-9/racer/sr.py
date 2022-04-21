@@ -46,7 +46,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def move(self):
         global SCORE
-        self.rect.move_ip(0,SPEED)
+        self.rect.move_ip(0, SPEED)
         if (self.rect.top > 600):
             SCORE += 1
             self.rect.top = 0
@@ -104,15 +104,12 @@ all_sprites.add(P1)
 all_sprites.add(E1)
 all_sprites.add(C1)
 
-
 #Background music
 pygame.mixer.music.load('sounds/background.wav')
 pygame.mixer.music.play(-1)
 
 #Adding a new User event 
 INC_SPEED = pygame.USEREVENT + 1
-pygame.time.set_timer(INC_SPEED, 1000)
-
 
 #Game Loop
 while True:
@@ -124,14 +121,15 @@ while True:
     #Cycles through all events occurring  
     for event in pygame.event.get():
         if event.type == INC_SPEED:
-            SPEED += 0.5      
+            SPEED += 10  
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
 
+    #Scores
     DISPLAYSURF.blit(background, (0,0))
     scores = font_small.render(str(SCORE), True, BLACK)
-    DISPLAYSURF.blit(scores, (20,10))
+    DISPLAYSURF.blit(scores, (20, 10))
     coin_scores = font_small.render(str(COIN_SCORE), True, BLACK)
     DISPLAYSURF.blit(coin_scores, (SCREEN_WIDTH - 30, 10))
 
@@ -146,7 +144,7 @@ while True:
         time.sleep(0.5)
                    
         DISPLAYSURF.fill(RED)
-        DISPLAYSURF.blit(game_over, (30,250))
+        DISPLAYSURF.blit(game_over, (30, 250))
           
         pygame.display.update()
         for entity in all_sprites:
@@ -161,7 +159,10 @@ while True:
         new_coin = Coin()
         coin.add(new_coin)
         all_sprites.add(new_coin)
-        COIN_SCORE += 1
+        COIN_SCORE += random.randint(1, 3)
+    
+    if COIN_SCORE > 20:
+        pygame.event.post(pygame.event.Event(INC_SPEED))
 
     pygame.event.pump()
     pygame.display.update()
