@@ -1,42 +1,40 @@
+#Imports
 import time
 import pygame
 import random
 
+#Initialzing 
+pygame.init()
+
+#Creating colors
+BLUE  = (0, 0, 255)
+RED   = (255, 0, 0)
+GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 LINE_COLOR = (50, 50, 50)
+
+#Other Variables for use in the program
 HEIGHT = 400
 WIDTH = 400
-FPS = 5
+SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+CLOCK = pygame.time.Clock()
+SCREEN.fill(BLACK)
+
 BLOCK_SIZE = 20
 
+#Setting up FPS
+FPS = 5
+
+#Setting up fonts
+font = pygame.font.SysFont("Verdana", 60)
+font_small = pygame.font.SysFont("Verdana", 15)
 
 class Point:
     def __init__(self, _x, _y):
         self.x = _x
         self.y = _y
 
-# class Free_space:
-#     def __init__(self):
-#         self.space = []
-#         self.free = []
-#         for y in range(0, HEIGHT//BLOCK_SIZE + 1):
-#             for x in range(0, WIDTH//BLOCK_SIZE + 1):
-#                 self.space.append(Point(x, y))
-
-#     def free_space(self, snake, wall):
-#         for i in range(len(self.space)):
-#             for j in range(len(snake.body)):
-#                 if snake.body[j].x == self.space[i].x:
-#                     if snake.body[j].y == self.space[i].y:
-#                         self.free.append(self.space[i])
-#         for i in range(len(self.space)):
-#             for j in range(len(wall.body)):
-#                 if wall.body[j].x == self.space[i].x:
-#                     if wall.body[j].y == self.space[i].y:
-#                         self.free.append(self.space[i])
-#         print(len(self.free), len(self.space))
-
-        
 
 class Wall:
     def __init__(self, level):
@@ -68,7 +66,7 @@ class Snake:
         self.body = [Point(10, 11)]
         self.dx = 0
         self.dy = 0
-        #self.level = 1
+        
 
     def move(self):    
         for i in range(len(self.body) - 1, 0, -1):
@@ -114,32 +112,44 @@ class Snake:
                 if self.body[0].y == wall.body[i].y:
                     time.sleep(1)
                     game_over()
+            
+            if food.location.x == wall.body[i].x:
+                if food.location.y == wall.body[i].y:
+                    food.location = Point(random.randint(0, 400)//BLOCK_SIZE, random.randint(0, 400)//BLOCK_SIZE)
 
+        for i in range(len(self.body)):
+            if food.location.x == self.body[i].x:
+                if food.location.y == self.body[i].y:
+                    food.location = Point(random.randint(0, 400)//BLOCK_SIZE, random.randint(0, 400)//BLOCK_SIZE)
 
 def game_over():
     pygame.quit()
 
-
 def main():
-    global SCREEN, CLOCK, FPS
-    pygame.init()
-    SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
-    CLOCK = pygame.time.Clock()
-    SCREEN.fill(BLACK)
-    level = [1, 2]
-    iter_level = iter(level)
+    global FPS
+    
+    #Level counter
+    level_number = 1
+
+    #Setting up objects
     snake = Snake()
     food = Food()
-    wall = Wall(next(iter_level))
-    # ground = Free_space()
+    wall = Wall(level_number)
+
+    #Adding a new User event 
     SPEED_INC = pygame.USEREVENT + 1
+    DISAP = pygame.USEREVENT + 2
+    pygame.time.set_timer(DISAP, 10000)
 
     while True:
+        #Cycles through all events occurring
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
             if event.type == SPEED_INC:
                 FPS += 2
+            if event.type == DISAP:
+                food.location = Point(random.randint(0, 400)//BLOCK_SIZE, random.randint(0, 400)//BLOCK_SIZE)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     snake.dx = 1
@@ -154,38 +164,34 @@ def main():
                     snake.dx = 0
                     snake.dy = 1
 
-        
+        #Moving snake
         snake.move()
         
-
+        #Checking snake collisions
         snake.check_collision(food, wall)
 
-        if len(snake.body) > 4 and len(snake.body) % 2 == 1:
-            level = next(iter_level)
-            wall = Wall(level)
+        #New level logic
+        if len(snake.body) > 10:
+            level_number += 1
+            wall = Wall(level_number)
             snake.new_level()
             snake = Snake()
             pygame.event.post(pygame.event.Event(SPEED_INC))
             
-
+        #Score and level
         SCREEN.fill(BLACK)
-
+        SCORE = len(snake.body) - 1
+        scores = font_small.render('Score: %d' %SCORE, True, WHITE)
+        SCREEN.blit(scores, (5, 5))
+        level = font_small.render('Level: %d' %level_number, True, WHITE)
+        SCREEN.blit(level, (5, 20))
         
+        #Drawing objects
         snake.draw()
         food.draw()
         wall.draw()
-        # ground.free_space(snake, wall)
-        drawGrid()
 
         pygame.display.update()
         CLOCK.tick(FPS)
-
-
-def drawGrid():
-    for x in range(0, WIDTH, BLOCK_SIZE):
-        for y in range(0, HEIGHT, BLOCK_SIZE):
-            rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
-            pygame.draw.rect(SCREEN, LINE_COLOR, rect, 1)
-
 
 main()
